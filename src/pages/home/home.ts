@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {AlertsPage} from "../alerts/alerts";
 import {AuthProvider} from "../../providers/auth/auth";
 import {UserProvider} from "../../providers/user/user";
+import {PrincipalProvider} from "../../providers/principal/principal";
 
 /**
  * Generated class for the HomePage page.
@@ -18,7 +19,7 @@ import {UserProvider} from "../../providers/user/user";
 })
 export class HomePage {
   items: Item[] = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams, private authServerProvider: AuthProvider, private userService: UserProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private authServerProvider: AuthProvider, private userService: UserProvider, private principal: PrincipalProvider) {
   }
 
   ionViewDidLoad() {
@@ -42,6 +43,10 @@ export class HomePage {
     this.userService.findAll().subscribe(res => {
       console.log(res.body);
     });
+  }
+
+  isAuthenticated(): boolean {
+    return this.principal.isAuthenticated();
   }
 }
 

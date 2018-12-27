@@ -19,6 +19,7 @@ import {HttpModule} from "@angular/http";
 import {AuthInterceptor} from "../interceptors/auth.interceptor";
 import { PrincipalProvider } from '../providers/principal/principal';
 import { UserProvider } from '../providers/user/user';
+import { AccountProvider } from '../providers/account/account';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { UserProvider } from '../providers/user/user';
     },
     PrincipalProvider,
     UserProvider,
+    AccountProvider,
   ]
 })
 export class AppModule {}
