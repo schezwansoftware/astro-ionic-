@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {AlertController, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {LoginProvider} from "../../providers/login/login";
 import {JWT_TOKEN_KEY} from "../../constants";
+import {HomePage} from "../home/home";
 
 /**
  * Generated class for the LoginPage page.
@@ -18,7 +19,12 @@ import {JWT_TOKEN_KEY} from "../../constants";
 export class LoginPage {
 
   account: any = {};
-  constructor(private loginService: LoginProvider, private loadingCtrl: LoadingController, private alertCtrl: AlertController) {
+  constructor(
+    private loginService: LoginProvider,
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController,
+    private navCtrl: NavController,
+    ) {
   }
 
   ionViewDidLoad() {}
@@ -30,6 +36,7 @@ export class LoginPage {
     loadingBar.present();
     this.loginService.login(this.account).then(() => {
       loadingBar.dismiss();
+      this.navCtrl.setRoot(HomePage);
     }).catch( err => {
       const alert = this.alertCtrl.create();
       alert.addButton({

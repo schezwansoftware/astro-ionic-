@@ -14,7 +14,7 @@ export class LoginProvider {
   constructor(private authServerProvider: AuthProvider) {
   }
 
-  login (credentials, callback) {
+  login (credentials, callback?) {
     const cb = callback || function () {};
     return new Promise((resolve, reject) => {
       this.authServerProvider.authenticate(credentials).subscribe((res: HttpResponse<any> ) => {

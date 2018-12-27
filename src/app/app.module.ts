@@ -14,8 +14,11 @@ import {AlertsPage} from "../pages/alerts/alerts";
 import {LoginPage} from "../pages/login/login";
 import { AuthProvider } from '../providers/auth/auth';
 import { LoginProvider } from '../providers/login/login';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HttpModule} from "@angular/http";
+import {AuthInterceptor} from "../interceptors/auth.interceptor";
+import { PrincipalProvider } from '../providers/principal/principal';
+import { UserProvider } from '../providers/user/user';
 
 
 @NgModule({
@@ -50,6 +53,13 @@ import {HttpModule} from "@angular/http";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     LoginProvider,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    PrincipalProvider,
+    UserProvider,
   ]
 })
 export class AppModule {}
