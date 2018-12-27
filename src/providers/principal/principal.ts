@@ -13,7 +13,7 @@ import {AccountProvider} from "../account/account";
 @Injectable()
 export class PrincipalProvider {
 
-  private userIdentity: any = {};
+  private userIdentity: any;
   private authenticated = false;
   private authenticationState = new Subject<any>();
 
@@ -72,7 +72,7 @@ export class PrincipalProvider {
            this.userIdentity = account;
            this.authenticated = true;
          } else {
-           this.userIdentity = undefined;
+           this.userIdentity = null;
            this.authenticated = false;
          }
          this.authenticationState.next(this.userIdentity);

@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component, OnInit} from '@angular/core';
+import {App, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {AlertsPage} from "../alerts/alerts";
 import {AuthProvider} from "../../providers/auth/auth";
 import {UserProvider} from "../../providers/user/user";
 import {PrincipalProvider} from "../../providers/principal/principal";
+import {LoginPage} from "../login/login";
 
 /**
  * Generated class for the HomePage page.
@@ -17,11 +18,17 @@ import {PrincipalProvider} from "../../providers/principal/principal";
   selector: 'page-home',
   templateUrl: 'home.html',
 })
-export class HomePage {
+export class HomePage implements OnInit {
   items: Item[] = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams, private authServerProvider: AuthProvider, private userService: UserProvider, private principal: PrincipalProvider) {
+  account: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private authServerProvider: AuthProvider, private userService: UserProvider, private principal: PrincipalProvider, private app: App) {
   }
 
+  ngOnInit() {
+    this.principal.identity().then((account) => {
+        this.account = account;
+    });
+  }
   ionViewDidLoad() {
     this.items.push(
       {
@@ -36,7 +43,9 @@ export class HomePage {
   }
 
   logout() {
-    this.authServerProvider.logout().subscribe(() => {});
+    this.authServerProvider.logout().subscribe();
+    this.principal.authenticate(null);
+    this.navCtrl.setRoot(LoginPage);
   }
 
   loadAllUsers() {

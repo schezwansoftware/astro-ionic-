@@ -15,10 +15,10 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content [ngSwitch]="isAuthenticated()" padding>
   <ion-list *ngFor="let item of items">
     <button (click)="onItemSelected(item)" ion-button color="primary">{{item.title}}</button>
   </ion-list>
-  <button (click)="logout()" ion-button color="danger">Logout</button>
-  <button *ngIf="isAuthenticated()" (click)="loadAllUsers()" ion-button color="secondary" block>Get Users</button>
+  <button *ngSwitchCase="true" (click)="logout()" ion-button color="danger">Logout</button>
+  <button *ngSwitchCase="true"  (click)="loadAllUsers()" ion-button color="secondary" block>Get Users</button>
 </ion-content>
